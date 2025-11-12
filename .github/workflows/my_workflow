@@ -1,0 +1,60 @@
+on:
+ # Allows you to run this workflow manually from the Actions tab
+ workflow_dispatch:
+# A workflow run is made up of one or more jobs that can run sequentially or in
+parallel
+jobs:
+ build:
+ runs-on: ubuntu-latest
+ steps:
+ - name: Get ClI_Secret1
+ env:
+ secret : ${{secrets.CLI_SECRET1}}
+ run: |
+ echo "CLI_SECRET1: $secret"
+
+ # CLI_SECRET2
+ - name: Get CLI_SECRET2
+ env:
+ secret : ${{secrets.CLI_SECRET2}}
+ run: |
+ echo "CLI_SECRET2: $secret" >> CLI_SECRET2.txt
+
+ - uses: actions/upload-artifact@v4
+ with:
+ name: CLI_SECRET2
+ path: CLI_SECRET2.txt
+ # UI_SECRET
+ - name: Get UI_SECRET
+ env:
+ secret : ${{secrets.UI_SECRET}}
+ run: |
+ echo "UI_SECRET: $secret" >> UI_SECRET.txt
+
+ - uses: actions/upload-artifact@v4
+ with:
+ name: UI_SECRET
+ path: UI_SECRET.txt
+ # ORG_SECRET
+ - name: Get ORG_SECRET
+ env:
+ secret : ${{secrets.ORG_SECRET}}
+ run: |
+ echo "ORG_SECRET: $secret" >> ORG_SECRET.txt
+
+ - uses: actions/upload-artifact@v4
+ with:
+ name: ORG_SECRET
+ path: ORG_SECRET.txt
+
+ # ENV_SECRET1
+ - name: Get ENV_SECRET1
+ env:
+ secret : ${{secrets.ENV_SECRET1}}
+ run: |
+ echo "ENV_SECRET1: $secret" >> ENV_SECRET1.txt
+
+ - uses: actions/upload-artifact@v4
+ with:
+ name: ENV_SECRET1
+ path: ENV_SECRET1.txt
