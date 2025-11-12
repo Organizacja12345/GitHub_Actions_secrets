@@ -43,32 +43,28 @@ jobs:
     steps:
       - shell: bash
         run: |
-          expr 3 + 7 > sum_result.txt
-      - name: Upload artifact
+          expr 3 + 7 > math-homework.txt
+      - name: Upload math result for job 1
         uses: actions/upload-artifact@v4
         with:
-          name: artifact
-          path: sum_result.txt
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifact
+          name: homework_pre
+          path: math-homework.txt
 
   job_2:
     name: Multiply by 9
     needs: job_1
     runs-on: windows-latest
     steps:
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v5
+        with:
+          name: homework_pre
       - shell: bash
         run: |
-          value=`cat multiply_result.txt`
-          echo $(expr $value \* 9) 
-            - name: Upload artifact
-      - uses: actions/upload-artifact@v4
+          value=`cat math-homework.txt`
+          expr $value \* 9 > math-homework.txt
+      - name: Upload math result for job 2
+        uses: actions/upload-artifact@v4
         with:
-          name: artifact
-          path: multiply_result.txt
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifact
+          name: homework_final
+          path: math-homework.txt
