@@ -38,6 +38,7 @@ jobs:
         run: env
 
   display-variables2:
+    environment: test
     runs-on: ubuntu-latest
     steps:
       - name: Use variables in display-variables2
