@@ -1,0 +1,27 @@
+name: "Hello World"
+description: "Greet someone"
+
+inputs:
+  who-to-greet: # id of input
+    description: "Who to greet"
+    required: true
+    default: "World"
+
+outputs: # ⬅ Deklaracja output dla AKCJI
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-number }} # ⬅ Referencja do outputu ze stepu
+
+runs:
+  using: "composite" # ⬅ Określamy, że to composite action
+  steps: # ⬅ Stepy jak w workflow (bez jobów)
+    - name: Set Greeting
+      run: echo "Hello $INPUT_WHO_TO_GREET."
+      shell: bash
+      env:
+        INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }} # ⬅ Pobranie inputu z akcji
+
+    - name: Random Number Generator
+      id: random-number-generator
+      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+      shell: bash
