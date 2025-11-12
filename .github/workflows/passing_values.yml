@@ -21,20 +21,21 @@ jobs:
         
   producer:
     runs-on: ubuntu-latest
+    outputs:
+      OUTPUT_JOB: ${{ steps.sentence_maker.outputs.MESSAGE }}
     steps:
       - name: Make a sentence
         id: sentence_maker
         run: |
-            echo "MESSAGE=Example message" >> "$GITHUB_OUTPUT"
+          echo "MESSAGE=Example message" >> "$GITHUB_OUTPUT"
+
   consumer:
     runs-on: ubuntu-latest
     needs: [producer]
-    outputs:
-      OUTPUT_JOB: ${{ steps.sentence_maker.outputs.MESSAGE }}
     steps:
       - name: Print the message
         run: |
-          echo ${{ needs.producer.outputs.OUTPUT_JOB }}
+          echo "From needs.producer.outputs: ${{ needs.producer.outputs.OUTPUT_JOB }}"
 
   job_1:
     name: Add 3 and 7
