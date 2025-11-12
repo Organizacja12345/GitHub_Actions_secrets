@@ -18,7 +18,7 @@ jobs:
       ENVIRONMENT_VAR: ${{ vars.ENVIRONMENT_VAR }}
 
     steps:
-      - name: Set step variable
+      - name: Use variables 1
         env:
           STEP_VAR: "Step variable"
         run: |
@@ -30,7 +30,7 @@ jobs:
           echo "Powinna być zmienna w scopie joba: $JOB_VAR"
           echo "Powinna być zmienna w scopie stepu: $STEP_VAR"
 
-      - name: Use variables 2 (bez STEP_VAR)
+      - name: Use variables 1
         run: |
           echo "Ala ma kota o nazwie $cat_name"
           echo "Powinna być zmienna w scopie workflow: $WORKFLOW_VAR"
@@ -55,6 +55,3 @@ jobs:
           echo "Powinna być zmienna w scopie workflow: $WORKFLOW_VAR"
           echo "NIE powinna być zmienna w scopie joba: $JOB_VAR"
           echo "NIE powinna być zmienna w scopie stepu: $STEP_VAR"
-          echo "Repo var: $REPOSITORY_VAR"
-          echo "Org var: $ORGANIZATION_VAR"
-          echo "Env var: $ENVIRONMENT_VAR"
