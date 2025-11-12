@@ -5,6 +5,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: test
     steps:
       # CLI_SECRET1
       - name: Get CLI_SECRET1
