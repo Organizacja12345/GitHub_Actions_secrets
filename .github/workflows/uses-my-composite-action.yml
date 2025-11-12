@@ -8,7 +8,7 @@ jobs:
    steps:
      - uses: actions/checkout@v4
      - id: foo
-       uses: Organizacja12345/GitHub_Actions_secrets/actions/my-composite-action@main #⬅ Zmienić
+       uses: Organizacja12345/GitHub_Actions_secrets/my-composite-action@main #⬅ Zmienić
        with:
          who-to-greet: Krystian #⬅ Uwaga
      - run: echo random-number "$RANDOM_NUMBER"
