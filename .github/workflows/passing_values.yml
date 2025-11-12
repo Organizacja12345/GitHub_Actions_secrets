@@ -36,34 +36,39 @@ jobs:
       - name: Print the message
         run: |
           echo "From needs.producer.outputs: ${{ needs.producer.outputs.OUTPUT_JOB }}"
-
+          
   job_1:
     name: Add 3 and 7
     runs-on: ubuntu-latest
     steps:
-      - name: Calculate sum
-        shell: bash
+      - shell: bash
         run: |
           expr 3 + 7 > sum_result.txt
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sum_result
+          name: artifact
           path: sum_result.txt
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
 
   job_2:
     name: Multiply by 9
     needs: job_1
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
+      - shell: bash
+        run: |
+          value=`cat multiply_result.txt`
+          echo $(expr $value \* 9) 
+            - name: Upload artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: multiply_result.txt
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: sum_result
-
-      - name: Multiply result
-        shell: bash
-        run: |
-          value=$(cat sum_result.txt)
-          echo $(expr $value \* 9) 
+          name: artifact
