@@ -42,6 +42,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Use variables in display-variables2
+        env:
+          STEP_VAR: "Step variable"
         run: |
           echo "Powinna być zmienna w scopie workflow: $WORKFLOW_VAR"
           echo "NIE powinna być zmienna w scopie joba: $JOB_VAR"
